@@ -64,7 +64,7 @@ app.get("/api/v1/content" ,auth, async (req , res) => {
     const userId = req.userId;
     const content = await contentModel.find({
         userId: userId
-    }).populate("username" , "userId")
+    }).populate("userId" , "username")
 
     res.json({
         content
@@ -90,7 +90,7 @@ app.delete("/api/v1/content" ,auth , async (req , res) => {
 
     // Delete content based on contentId and userId.
     //@ts-ignore
-    await contentModel.deleteOne({ contentId, userId: req.userId });
+    await contentModel.deleteOne({ _id: contentId, userId: req.userId });
     res.json({ message: "Deleted" }); // Send success response.
 })
 
